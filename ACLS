@@ -1,0 +1,48 @@
+!
+! R1 and R2 inbound ACL
+!
+ip access-list extended INBOUND
+permit tcp any host 10.0.25.1 eq 80
+permit tcp any host 10.0.25.1 eq 443
+permit tcp any any established
+int g0/0/1
+ip access-group INBOUND in
+
+
+!
+! R3 inbound ACL
+!
+ip access-list extended INBOUND
+permit tcp any host 192.168.25.2 eq 80
+permit tcp any host 192.168.25.2 eq 443
+permit tcp any any established
+int g0/0/1
+ip access-group INBOUND in
+int g0/1/0
+ip access-group INBOUND in
+
+
+! 
+! Router g0/0/0.25 subinterface DMZ
+!
+ip access-list standard DMZ
+deny 10.0.0.0 0.255.255.255
+deny 192.168.0.0 0.0.255.255
+permit tcp 10.0.0.0 0.255.255.255 host 192.168.25.2 eq 80
+permit tcp 192.168.0.0 0.0.255.255 host 192.168.25.2 eq 443
+permit any any 
+int g0/0/0.25
+ip access-group DMZ in
+
+
+! 
+! Router management ACL
+!
+ip access-list standard MANAGEMENT
+permit 10.0.10.0 0.0.0.255
+permit 192.168.10.0 0.0.0.255
+int g0/0/0.10
+ip access-group MANAGEMENT in
+
+
+
