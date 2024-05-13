@@ -1,0 +1,128 @@
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime
+no service password-encryption
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+ip arp inspection vlan 10,20,25,30,40,50,60,99
+!
+!
+ip dhcp snooping
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+!
+interface Port-channel2
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!         
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/22
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface FastEthernet0/23
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface FastEthernet0/24
+ switchport trunk native vlan 99
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ ip address 10.0.10.1 255.255.255.0
+!
+ip default-gateway 10.0.10.254
+ip http server
+ip http secure-server
+logging trap warnings
+logging host 10.0.20.3
+snmp-server community public RO
+snmp-server host 10.0.20.3 public 
+!
+vstack
+!
+line con 0
+line vty 5 15
+!
+end
+
