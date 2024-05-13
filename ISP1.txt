@@ -1,0 +1,147 @@
+!
+! Last configuration change at 16:42:04 UTC Mon May 13 2024
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname ISP1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+ip dhcp pool webuidhcp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki trustpoint TP-self-signed-279311029
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-279311029
+ revocation-check none
+ rsakeypair TP-self-signed-279311029
+!
+!
+crypto pki certificate chain TP-self-signed-279311029
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32373933 31313032 39301E17 0D323430 35313331 36333930 
+  305A170D 33303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3237 39333131 
+  30323930 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 C61E6B92 8728865F 9256EA9F BF2DAE03 A5EA38B1 ABD9820C A4AED65E 
+  997C1D11 BBE80BE2 B4D6044C 9786FE86 DDE82995 250749C8 117F9A89 A3385553 
+  4B430A61 217B16DC 3F213247 EB67E59B 26935DC2 40ACB9D0 2737D842 BF13B66E 
+  8F9229E4 C304D607 290DCD25 468E8C0D C186FE83 5AF1B0B1 E1C16418 F8A950B7 
+  38C36E60 9E30A45C 9A21CB1A 7FB4FD16 57F4FAE9 8872E534 A1B553FF 47FC8EF5 
+  95B32ADF BEDBBC04 74EE87F7 06DCF1C4 390A4841 3595E15F E1CCE785 D5BD36B3 
+  809794E7 F9B06503 A8050A1E 51E7A709 33C6F794 30F95366 DD9E386B F178C5D9 
+  58156E80 7249E9EE EBAFBFF4 D388BCF4 0BF78258 753A9DA5 5F0A64CA C81625E6 
+  FB5D58E1 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 168014B7 C9A7F56C 620B3E6D E5FF5A18 EFFFEFCD BB36B630 
+  1D060355 1D0E0416 0414B7C9 A7F56C62 0B3E6DE5 FF5A18EF FFEFCDBB 36B6300D 
+  06092A86 4886F70D 01010505 00038201 01009EA4 9A0745BA DFFFBF50 684C1C4A 
+  36D1660C 1AC21FB2 313AB8BF 2DA05EB5 E13BBE22 7C5C883B 1FC9895F A8776113 
+  813D481A A748B899 2C687C32 070E9FE6 1A120DD8 8ACB5B4C 1E6459FC 25719A25 
+  BF0E6782 8FF5A259 49321272 CA45C9B3 2F149E72 617B0662 00795982 0008EFF1 
+  5C88D6B2 2496F00C D1133963 0B9C5491 C5567908 BAFEBDAD C1A1F1F1 BC839EDA 
+  8F941CA6 38FC62C4 C308C838 252C20BC 83914ECA 207941F0 A9111D5E 4E13B2C3 
+  301AFF8C BD233F23 450D191B 2469C4DD 5A704333 6D357FA3 B3B20887 1DA773B5 
+  2349B90C 0ABCFC6E A15C540D 14157449 9CD2DE2A C1D4E332 D90A46DE 38AC7DE7 
+  33D6088F B74E6447 5B4C0E5B A2594389 C90B
+  	quit
+!
+license udi pid ISR4321/K9 sn FLM2408021R
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 123.0.0.2 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0/1/0
+ ip address 123.0.0.14 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+!
+!
+!
+!
+end
+
