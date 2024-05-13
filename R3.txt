@@ -1,5 +1,5 @@
 !
-! Last configuration change at 21:44:56 UTC Fri May 10 2024
+! Last configuration change at 17:14:50 UTC Mon May 13 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -28,6 +28,35 @@ ip domain name cst.com
 !
 ip dhcp pool webuidhcp
 !
+ip dhcp pool VLAN10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.254 
+ dns-server 10.0.20.1 
+!         
+ip dhcp pool VLAN40
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN50
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN60
+ network 192.168.60.0 255.255.255.0
+ default-router 192.168.60.254 
+ dns-server 10.0.20.1 
 !
 !
 !
@@ -36,6 +65,7 @@ ip dhcp pool webuidhcp
 !
 !
 !
+!         
 !
 subscriber templating
 ipv6 unicast-routing
@@ -52,33 +82,33 @@ crypto pki trustpoint TP-self-signed-1628951475
 !
 crypto pki certificate chain TP-self-signed-1628951475
  certificate self-signed 01
-  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
-  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
-  69666963 6174652D 31363238 39353134 3735301E 170D3234 30353130 31393236
-  35345A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649
-  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 36323839
-  35313437 35308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201
-  0A028201 0100B966 D7745077 E3407056 04063051 E33D3793 EFDAB551 B2D6B790
-  C9B43FE9 FC5DE086 36C651E0 6144FD9E 975569F8 2EDCF566 D17CE50D 8C7A7987
-  2DE298A7 2D09E2AD 12F67B2B 1399BE05 A7D8318E 8E43DD73 2F386B90 08C50441
-  1CE28A79 B75095FB F191478B 5A616CC4 1BC3A9CF 054A160E A3EC372A 6B23BB71
-  C1B31768 A47BEF62 F40B9B94 ABEC728D 681812C4 3E13CEB3 8BFC26BA D701F7E8
-  D6BA1C32 50C0EF81 F1993213 4FE48F29 14308CA9 F3EB56B9 896D121E 9B7B502A
-  AB0DE05A 83C51BB8 B2095F9E 88EDA343 E1AE30F0 9C86C0D8 2C0A37CC 6B14D1CB
-  2791A92F B8E65861 188A957E 498D57B8 DD5E903E 7AC1DB63 F66DB0C1 CDFFE646
-  70A87562 0FBB0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF
-  301F0603 551D2304 18301680 144AED6F 1CA12E52 1D7860BE F0AA8F44 A67EE9BA
-  64301D06 03551D0E 04160414 4AED6F1C A12E521D 7860BEF0 AA8F44A6 7EE9BA64
-  300D0609 2A864886 F70D0101 05050003 82010100 28208FD3 FBEF9AC1 594F69B9
-  EC2E434B F3A5F15B D57117AA BC24D630 9E5D28DD B53E55D0 0BCAB339 F1C2C3FC
-  7FB0D830 628C5F8C C4485A3F BE5A1CEC F12B3FFE DE7331CE DCFC1CC5 659D477A
-  641FB6EE 035C2C10 6558BEE2 33A2B48D 7D17E4D3 E0E4F93B 96F5C1F4 9F5A9CDD
-  11DCFF3C A68482CB 198B6BBF 879ACA92 6D11DC3E F4889A31 462A251A B42E9B4D
-  2FD57481 B4B8FADB 4CBF41AE 1A9378FD 7DC0820C 1862ED3C 271469D6 1C9221A8
-  AE0F449F BD6BCE07 83A96E6C 83103AB1 E8FAEB4D 91B4ABB5 E384F6A6 A32DC03F
-  6A7ECEE3 C38D8A6B 1E80397B B73C0104 097AD6BC 59DE8B3A 31AA6982 7C54FC9D
-  7CF9E96C 7D5888AD 2262C25F 30193E65 A1B39914
-        quit
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31363238 39353134 3735301E 170D3234 30353133 31363231 
+  34355A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 36323839 
+  35313437 35308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008503 9AA00E6F B75B9793 D4A3D243 11D4BD0E 273D44C4 5E159A11 
+  20307B03 BB821F25 BDE44387 243E4294 61482A52 5F8F0EE1 5C3C8697 BE86C2B4 
+  231A3914 51E7CF0E 009F5424 1CA9DFB2 99DDDC97 468C54EA E833D454 8C57D4C7 
+  A3D5DC8A CA2279A7 49239171 9D0AA9E0 C69675F7 E56138D8 07241655 2D75E572 
+  E60F3386 B268D99F BA5144EB 698BD37D 8207E957 2D82BB72 645D9B4F 2BA3BD83 
+  D76E565B 4721B3C0 CE238D95 4BD6E930 73E0762B FEA55E36 F706D69F DC152342 
+  22EAF138 EDC838AF A82F490E CBF97994 995B7B6D 1D82B918 BB1C568D 68727D1D 
+  EAFBF5EE 18D73861 2E010C62 1ECDF077 52E11F0B 8F78DE28 F72E7185 1845DBC9 
+  2DB7E54F B0770203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 1414199C 8923C660 F8BC7850 AEAB5014 7EA61065 
+  0B301D06 03551D0E 04160414 14199C89 23C660F8 BC7850AE AB50147E A610650B 
+  300D0609 2A864886 F70D0101 05050003 82010100 2FC0CCC6 A3AA879D 67EF6ACD 
+  3546FC03 3C93DFA6 69E294EA 5E313C82 2F0105B1 30DE4006 614BF07A 09A8EF4F 
+  43B167C1 C5857C9E 7D66D790 7CAF8850 7B9D16F7 AE088404 E4815C0C 946FC125 
+  5E5CEB02 06FE88D9 0C612291 48E3C89B 0B997582 B1E3CD06 E79BBB1B E889A813 
+  54F27138 FED985E8 4D5EBEB1 FD23387E 07EE55E4 94A3196B 81B67C20 460C8208 
+  D5242C3C 53DB0290 756A6C26 0BB9DEFA 970028BA B2179F21 70970D11 741CD8BF 
+  CBE83EB4 A9FF3AA5 095266C9 A3F7D64B 0B7D9AF1 168AE952 B2F28013 35426106 
+  00EC6E68 1DE8DD18 9E2F1B78 A49F5972 003CBA73 353EC57C 691EE7C4 AB2C1B29 
+  1D215176 D0AC662F B1D3B540 5FB035F6 6A3A8B28
+  	quit
 !
 license udi pid ISR4321/K9 sn FLM2408022L
 no license smart enable
@@ -88,7 +118,7 @@ spanning-tree extend system-id
 !
 !
 !
-username admin secret 5 $1$WjFy$jwIC.8.cJk3dNiJ9CoFLR1
+username admin secret 5 $1$HXQX$qecxfJv7QZiCK9fIJ17w4.
 !
 redundancy
  mode none
@@ -104,10 +134,10 @@ interface GigabitEthernet0/0/0
  no ip address
  ip nat inside
  negotiation auto
-!
+!         
 interface GigabitEthernet0/0/0.10
  encapsulation dot1Q 10
- ip address 10.0.10.254 255.255.255.0
+ ip address 192.168.10.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -115,7 +145,7 @@ interface GigabitEthernet0/0/0.10
 !
 interface GigabitEthernet0/0/0.20
  encapsulation dot1Q 20
- ip address 10.0.20.254 255.255.255.0
+ ip address 192.168.20.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -123,7 +153,7 @@ interface GigabitEthernet0/0/0.20
 !
 interface GigabitEthernet0/0/0.25
  encapsulation dot1Q 25
- ip address 10.0.25.254 255.255.255.0
+ ip address 192.168.25.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -131,7 +161,7 @@ interface GigabitEthernet0/0/0.25
 !
 interface GigabitEthernet0/0/0.30
  encapsulation dot1Q 30
- ip address 10.0.30.254 255.255.255.0
+ ip address 192.168.30.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -139,7 +169,7 @@ interface GigabitEthernet0/0/0.30
 !
 interface GigabitEthernet0/0/0.40
  encapsulation dot1Q 40
- ip address 10.0.40.254 255.255.255.0
+ ip address 192.168.40.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -147,7 +177,7 @@ interface GigabitEthernet0/0/0.40
 !
 interface GigabitEthernet0/0/0.50
  encapsulation dot1Q 50
- ip address 10.0.50.254 255.255.255.0
+ ip address 192.168.50.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -155,7 +185,7 @@ interface GigabitEthernet0/0/0.50
 !
 interface GigabitEthernet0/0/0.60
  encapsulation dot1Q 60
- ip address 10.0.60.254 255.255.255.0
+ ip address 192.168.60.254 255.255.255.0
  ipv6 address dhcp
  ipv6 address autoconfig
  ipv6 enable
@@ -168,13 +198,10 @@ interface GigabitEthernet0/0/1
  ip address 123.0.0.13 255.255.255.252
  ip nat outside
  negotiation auto
- ipv6 address dhcp
- ipv6 address autoconfig
- ipv6 enable
- ipv6 dhcp client request vendor
 !
 interface GigabitEthernet0/1/0
  ip address 123.0.0.9 255.255.255.252
+ ip nat outside
  negotiation auto
  ipv6 address dhcp
  ipv6 address autoconfig
@@ -184,28 +211,49 @@ interface GigabitEthernet0/1/0
 interface GigabitEthernet0
  vrf forwarding Mgmt-intf
  no ip address
- ip nat outside
  shutdown
  negotiation auto
 !
 router ospf 10
- network 10.0.0.0 0.0.0.255 area 0
- network 10.0.10.0 0.0.0.255 area 0
- network 10.0.20.0 0.0.0.255 area 0
- network 10.0.25.0 0.0.0.255 area 0
- network 10.0.30.0 0.0.0.255 area 0
- network 10.0.40.0 0.0.0.255 area 0
- network 10.0.50.0 0.0.0.255 area 0
- network 10.0.60.0 0.0.0.255 area 0
+ network 192.168.0.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.25.0 0.0.0.255 area 0
+ network 192.168.30.0 0.0.0.255 area 0
+ network 192.168.40.0 0.0.0.255 area 0
+ network 192.168.50.0 0.0.0.255 area 0
+ network 192.168.60.0 0.0.0.255 area 0
 !
+ip nat inside source list NAT interface GigabitEthernet0/1/0 overload
+ip nat inside source list NATBACKUP interface GigabitEthernet0/0/1 overload
 ip forward-protocol nd
 ip http server
 ip http authentication local
 ip http secure-server
 ip tftp source-interface GigabitEthernet0
+ip route 0.0.0.0 0.0.0.0 123.0.0.14
+ip route 0.0.0.0 0.0.0.0 123.0.0.10 50
 !
-ip ssh version 2
 !
+!
+ip access-list standard NAT
+ permit 192.168.0.0 0.0.0.255
+ permit 192.168.10.0 0.0.0.255
+ permit 192.168.20.0 0.0.0.255
+ permit 192.168.25.0 0.0.0.255
+ permit 192.168.30.0 0.0.0.255
+ permit 192.168.40.0 0.0.0.255
+ permit 192.168.50.0 0.0.0.255
+ permit 192.168.60.0 0.0.0.255
+ip access-list standard NATBACKUP
+ permit 192.168.0.0 0.0.0.255
+ permit 192.168.10.0 0.0.0.255
+ permit 192.168.20.0 0.0.0.255
+ permit 192.168.25.0 0.0.0.255
+ permit 192.168.30.0 0.0.0.255
+ permit 192.168.40.0 0.0.0.255
+ permit 192.168.50.0 0.0.0.255
+ permit 192.168.60.0 0.0.0.255
 !
 !
 !
@@ -219,12 +267,16 @@ line con 0
 line aux 0
  stopbits 1
 line vty 0 4
- login
+ login local
  transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!         
 !
 !
 !
 !
 !
-!
-End
+end
+
