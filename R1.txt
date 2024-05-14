@@ -1,0 +1,222 @@
+!
+! Last configuration change at 19:27:21 UTC Tue May 14 2024
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+no aaa new-model
+!
+ip domain name eci.com
+!
+ip dhcp pool webuidhcp
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3954227063
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3954227063
+ revocation-check none
+ rsakeypair TP-self-signed-3954227063
+!
+!
+crypto pki certificate chain TP-self-signed-3954227063
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33393534 32323730 3633301E 170D3234 30353133 31373231 
+  33305A17 0D333030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 39353432 
+  32373036 33308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 0100A901 C13FBF59 77EC31A5 8ED8B6C7 18A8375C 5022C988 5BBB4553 
+  9CC4D785 CEF2D10E 9612EC72 AB110BC3 09D09D00 5C9F1E0B 18728CF3 31D50508 
+  159C74A5 C6E65881 FB8DA386 FD01436E FE8764C7 34477FD1 75E69855 8C3634BD 
+  9623525B 8103E5F1 844232E4 CCA6700C CD4A2A19 DC241654 E7BC6E7A 2949523B 
+  36AAD7C3 80240449 6553916D D8468405 5C175860 24618F20 4752C7FC 0B88496E 
+  0AEFAE92 E5ABC48B D90231C3 3AEAEC23 315FF867 AB1F72FE ED2820D9 168A8092 
+  2A63F6C0 59FAC2A8 57FC8114 C5F6047A 50E6C00B D938ADE0 FCAFECBF B7CFEA86 
+  82642FB6 25876C1B 66810619 63190FE9 FD5F7318 9EEC7AB9 C33ABC4C BA90EF04 
+  99E2B126 B31D0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 14F62B4A CA064B46 C71D6040 2DE12EF1 2110E43E 
+  FB301D06 03551D0E 04160414 F62B4ACA 064B46C7 1D60402D E12EF121 10E43EFB 
+  300D0609 2A864886 F70D0101 05050003 82010100 3769EFA6 4FBB08C2 0C20EAF7 
+  C6066BDA D68BBBB4 EF3DEB73 A688567E 5C6F6A69 1CD550F2 8DE42EC5 83E9CA81 
+  F1A4865F C977C01F 3E787D52 F9A7767F 36BD4DC4 7796CFCA DB5E8327 4D2A5270 
+  F959D86D 90B69ED2 93B4DE03 DBAB4F0D F4353B16 1DABB6FC F11EE55E 20FDF48A 
+  49A7130B 608F5914 E5BD7F23 C665B968 A683EDBE C286AFB7 5BF00782 3DD2E853 
+  4BA1B211 19C50868 E3CED16B 29CB935F CD100C5A FCD5A0AF B237A421 24D89E90 
+  1AFB8193 502FA70E 0760378D C7D8E7F8 B5D5F63F FC015D2C F2D3EE1C 950D6A5A 
+  1D87E993 0B2FA766 8A85639A FB06CC20 CE290319 302AD804 21D38E70 69B8BF87 
+  C26E698E 53A9ED04 DDF8B35D 08529E59 EA33F003
+  	quit
+!
+license udi pid ISR4321/K9 sn FLM240800M6
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 192.168.13.1 255.255.255.0
+ tunnel source GigabitEthernet0/0/1
+ tunnel destination 123.0.0.13
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ ip nat inside
+ negotiation auto
+!
+interface GigabitEthernet0/0/0.10
+ encapsulation dot1Q 10
+ ip address 10.0.10.201 255.255.255.0
+ glbp 1 ip 10.0.10.254
+ glbp 1 priority 150
+ glbp 1 preempt
+!
+interface GigabitEthernet0/0/0.20
+ encapsulation dot1Q 20
+ ip address 10.0.20.201 255.255.255.0
+ glbp 2 ip 10.0.20.254
+ glbp 2 priority 150
+ glbp 2 preempt
+!
+interface GigabitEthernet0/0/0.25
+ encapsulation dot1Q 25
+ ip address 10.0.25.201 255.255.255.0
+ glbp 3 ip 10.0.25.254
+ glbp 3 priority 150
+ glbp 3 preempt
+!
+interface GigabitEthernet0/0/0.30
+ encapsulation dot1Q 30
+ ip address 10.0.30.201 255.255.255.0
+ glbp 4 ip 10.0.30.254
+ glbp 4 priority 150
+ glbp 4 preempt
+!
+interface GigabitEthernet0/0/0.40
+ encapsulation dot1Q 40
+ ip address 10.0.40.201 255.255.255.0
+ glbp 5 ip 10.0.40.254
+ glbp 5 priority 150
+ glbp 5 preempt
+!
+interface GigabitEthernet0/0/0.50
+ encapsulation dot1Q 50
+ ip address 10.0.50.201 255.255.255.0
+ glbp 6 ip 10.0.50.254
+ glbp 6 priority 150
+ glbp 6 preempt
+!
+interface GigabitEthernet0/0/0.60
+ encapsulation dot1Q 60
+ ip address 10.0.60.201 255.255.255.0
+ glbp 7 ip 10.0.60.254
+ glbp 7 priority 150
+ glbp 7 preempt
+!
+interface GigabitEthernet0/0/0.99
+ encapsulation dot1Q 99 native
+!
+interface GigabitEthernet0/0/1
+ ip address 123.0.0.1 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0/1/0
+ ip address 10.0.0.1 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ negotiation auto
+!
+router ospf 10
+ router-id 1.1.1.1
+ passive-interface GigabitEthernet0/0/0
+ network 10.0.0.0 0.0.0.3 area 0
+ network 10.0.10.0 0.0.0.255 area 0
+ network 10.0.20.0 0.0.0.255 area 0
+ network 10.0.25.0 0.0.0.255 area 0
+ network 10.0.30.0 0.0.0.255 area 0
+ network 10.0.40.0 0.0.0.255 area 0
+ network 10.0.50.0 0.0.0.255 area 0
+ network 10.0.60.0 0.0.0.255 area 0
+ network 123.0.0.0 0.0.0.3 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip route 0.0.0.0 0.0.0.0 123.0.0.2
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+!
+!
+!
+end
+
