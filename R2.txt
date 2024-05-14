@@ -226,7 +226,6 @@ ip http authentication local
 ip http secure-server
 ip tftp source-interface GigabitEthernet0
 ip route 0.0.0.0 0.0.0.0 123.0.0.6
-ip route 192.168.14.2 255.255.255.255 GigabitEthernet0/0/1
 !
 ip ssh version 2
 !

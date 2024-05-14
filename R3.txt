@@ -1,5 +1,5 @@
 !
-! Last configuration change at 19:48:12 UTC Tue May 14 2024
+! Last configuration change at 21:09:58 UTC Tue May 14 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -32,12 +32,10 @@ no aaa new-model
 !
 ip domain name cst.com
 !
-ip dhcp pool webuidhcp
-!
 ip dhcp pool VLAN30
  network 192.168.30.0 255.255.255.0
  default-router 192.168.30.254 
- dns-server 10.0.20.1
+ dns-server 10.0.20.1 
  domain-name eci.com
 !
 ip dhcp pool VLAN40
@@ -59,7 +57,7 @@ ip dhcp pool VLAN60
  domain-name eci.com
 !
 !
-!         
+!
 !
 !
 !
@@ -113,7 +111,7 @@ crypto pki certificate chain TP-self-signed-1628951475
   1F3168EF 4A02A7FD C4EC1097 0877B9EA 0B14BB05 73740E83 A8CA83CF E52BF777 
   9A72126A 62EB5C34 742EC789 1DE386C0 F4DBDAE2 49A3FDB6 D00D565C F3A8C5AC 
   D3389D53 2960E7BC E6CE4988 E773CCAF 95B5CAC4
-  	quit
+        quit
 !
 license udi pid ISR4321/K9 sn FLM2408022L
 license boot suite FoundationSuiteK9
@@ -128,7 +126,7 @@ username admin secret 5 $1$HXQX$qecxfJv7QZiCK9fIJ17w4.
 !
 redundancy
  mode none
-!         
+!
 !
 !
 !
@@ -136,7 +134,7 @@ redundancy
 !
 !
 ! 
-!
+!         
 !
 !
 !
@@ -159,7 +157,7 @@ interface Tunnel2
  ip address 192.168.14.2 255.255.255.0
  tunnel source GigabitEthernet0/1/0
  tunnel destination 123.0.0.5
-!
+!         
 interface GigabitEthernet0/0/0
  no ip address
  ip nat inside
@@ -224,11 +222,11 @@ router ospf 10
  router-id 3.3.3.3
  passive-interface GigabitEthernet0/0/0
  passive-interface GigabitEthernet0/0/1
-  passive-interface GigabitEthernet0/1/0
+ passive-interface GigabitEthernet0/1/0
+ network 123.0.0.8 0.0.0.3 area 0
+ network 123.0.0.12 0.0.0.3 area 0
  network 192.168.0.0 0.0.0.255 area 0
  network 192.168.10.0 0.0.0.255 area 0
- network 192.168.13.0 0.0.0.255 area 0
- network 192.168.14.0 0.0.0.255 area 0
  network 192.168.20.0 0.0.0.255 area 0
  network 192.168.25.0 0.0.0.255 area 0
  network 192.168.30.0 0.0.0.255 area 0
@@ -245,7 +243,8 @@ ip http secure-server
 ip tftp source-interface GigabitEthernet0
 ip route 0.0.0.0 0.0.0.0 123.0.0.14
 ip route 0.0.0.0 0.0.0.0 123.0.0.10 50
-ip route 192.168.14.1 255.255.255.255 GigabitEthernet0/1/0
+ip route 10.0.0.0 255.255.0.0 Tunnel1
+ip route 10.0.10.0 255.255.255.0 Tunnel1
 !
 !
 !
@@ -258,7 +257,6 @@ ip access-list standard NAT
  permit 192.168.40.0 0.0.0.255
  permit 192.168.50.0 0.0.0.255
  permit 192.168.60.0 0.0.0.255
-!
 ip access-list standard NATBACKUP
  permit 192.168.0.0 0.0.0.255
  permit 192.168.10.0 0.0.0.255
@@ -274,7 +272,7 @@ ip access-list standard NATBACKUP
 !
 control-plane
 !
-!
+!         
 line con 0
  transport input none
  stopbits 1
@@ -293,4 +291,3 @@ line vty 5 15
 !
 !
 end
-
