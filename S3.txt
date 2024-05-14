@@ -1,5 +1,5 @@
 !
-! Last configuration change at 01:33:33 UTC Mon Mar 1 1993
+! Last configuration change at 02:14:36 UTC Tue Mar 2 1993
 !
 version 15.0
 no service pad
@@ -15,10 +15,9 @@ boot-end-marker
 !
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 10,20,25,30,40,50,60,99
 !
 !
-ip dhcp snooping
+ip domain-name eci.com
 !
 !         
 !
@@ -26,9 +25,10 @@ ip dhcp snooping
 !
 !
 !
+!
+!
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
-spanning-tree vlan 20,25,30,40,50,60,99 root primary
 !
 vlan internal allocation policy ascending
 !
@@ -44,8 +44,10 @@ interface Port-channel3
 interface Port-channel4
  switchport trunk native vlan 99
  switchport mode trunk
-!         
+!
 interface FastEthernet0/1
+ switchport trunk native vlan 99
+ switchport mode trunk
 !
 interface FastEthernet0/2
 !
@@ -119,11 +121,7 @@ interface Vlan10
 ip default-gateway 10.0.10.254
 ip http server
 ip http secure-server
-logging trap warnings
-logging host 10.0.20.3
-!
 snmp-server community public RO
-snmp-server host 10.0.20.3 public 
 !
 vstack
 !

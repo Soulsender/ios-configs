@@ -1,27 +1,57 @@
 !
-! Last configuration change at 01:18:29 UTC Mon Mar 1 1993
+! Last configuration change at 00:03:35 UTC Mon Mar 1 1993
 !
 version 15.0
 no service pad
-service timestamps debug datetime msec
-service timestamps log datetime
-no service password-encryption
+no service timestamps debug uptime
+no service timestamps log uptime
+service password-encryption
 !
 hostname S2
 !
 boot-start-marker
 boot-end-marker
 !
+no logging console
 !
+username admin secret 5 $1$L7fl$Dfg9HjYWEdU8EeSMgQWrN/
 no aaa new-model
 system mtu routing 1500
 ip arp inspection vlan 10,20,25,30,40,50,60,99
 !
-!
-ip dhcp snooping
 !         
+ip dhcp snooping
+ip domain-name eci.com
 !
 !
+crypto pki trustpoint TP-self-signed-2034437376
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2034437376
+ revocation-check none
+ rsakeypair TP-self-signed-2034437376
+!
+!
+crypto pki certificate chain TP-self-signed-2034437376
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32303334 34333733 3736301E 170D3933 30333031 30303033 
+  33345A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 30333434 
+  33373337 3630819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100AA52 B3A5F6F0 23C3AADC D6740F17 7278A08D 2D6DBE2D 0FE482F9 8BCFCF44 
+  CDE6CF39 93BF089C AACC82DD 77AAF2DD 4D1E3253 611930B4 3CFB83CD 6377D3C7 
+  632013AB 61AE16BB D9C0CCF7 1BFA875F EE9671F6 6597D8F0 0898E3D8 9BA4AEFD 
+  9528540C 0DB605DC 807F67F5 8866442F B7726E59 E8A6894B 1E0DB92C 7BB0A4DB 
+  E47B0203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603 
+  551D2304 18301680 14A8DC2E 8C01A513 03DCC524 25E8CD29 A42BB0C3 75301D06 
+  03551D0E 04160414 A8DC2E8C 01A51303 DCC52425 E8CD29A4 2BB0C375 300D0609 
+  2A864886 F70D0101 05050003 8181002F 1E738BCC 204528AE 81D89EC2 52DFB55A 
+  7B077542 9E712D2D A5F33F53 C4366F1F F235DF31 4176D53F 2CD0AF6A 800694C2 
+  7CCD95F5 CD491529 3737ACC0 CA8D2A6D 16CA34D5 9DAC4FE1 53ABB1DC B5D6889C 
+  A077E190 12931A3E D1EA4924 29996BD3 A9E07E8A 83154038 F2C4D89B 64DAEC31 
+  8C407C3A 0BCAC3D8 2730CF2A 5955DF
+  	quit
 !
 !
 !
@@ -35,7 +65,7 @@ vlan internal allocation policy ascending
 !
 !
 !
-!
+!         
 !
 !
 interface Port-channel1
@@ -65,7 +95,7 @@ interface FastEthernet0/8
 interface FastEthernet0/9
 !
 interface FastEthernet0/10
-!         
+!
 interface FastEthernet0/11
 !
 interface FastEthernet0/12
@@ -81,7 +111,7 @@ interface FastEthernet0/16
 interface FastEthernet0/17
 !
 interface FastEthernet0/18
-!
+!         
 interface FastEthernet0/19
 !
 interface FastEthernet0/20
@@ -89,22 +119,22 @@ interface FastEthernet0/20
 interface FastEthernet0/21
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 1 mode active
+ channel-group 2 mode active
 !
 interface FastEthernet0/22
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 1 mode active
+ channel-group 2 mode active
 !
 interface FastEthernet0/23
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 2 mode active
+ channel-group 1 mode active
 !
 interface FastEthernet0/24
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 2 mode active
+ channel-group 1 mode active
 !
 interface GigabitEthernet0/1
 !
@@ -120,15 +150,17 @@ interface Vlan10
 ip default-gateway 10.0.10.254
 ip http server
 ip http secure-server
-logging trap warnings
-logging host 10.0.20.3
+no logging trap
 snmp-server community public RO
-snmp-server host 10.0.20.3 public 
 !
 vstack
 !
 line con 0
+line vty 0 4
+ login local
+ transport input ssh
 line vty 5 15
+ login
 !
 end
 

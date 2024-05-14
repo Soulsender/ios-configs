@@ -1,5 +1,5 @@
 !
-! Last configuration change at 01:26:36 UTC Mon Mar 1 1993
+! Last configuration change at 02:00:15 UTC Tue Mar 2 1993
 !
 version 15.0
 no service pad
@@ -15,12 +15,40 @@ boot-end-marker
 !
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 10,20,25,30,40,50,60,99
 !
 !
 ip dhcp snooping
-!
+ip domain-name eci.com
 !         
+!
+crypto pki trustpoint TP-self-signed-798259456
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-798259456
+ revocation-check none
+ rsakeypair TP-self-signed-798259456
+!
+!
+crypto pki certificate chain TP-self-signed-798259456
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 37393832 35393435 36301E17 0D393330 33303130 30303130 
+  325A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3739 38323539 
+  34353630 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 
+  997962CF C05C74C5 22EF8B78 2F89F2C7 9BD58519 EBB0F3B5 F897C405 764EE9EC 
+  28B54E71 3149E4F9 6C701FCD 98AC54A9 7EC2F8FF 742D7DFB 32357CC4 DA3A089A 
+  B7238729 480EC4CC B40DAF02 B68F575F 46E6DD69 9EDB10E3 B0A78DC0 E19A688A 
+  63991EAD 064F84C4 B2E8881A 8BE943EB 73203BDC F51C6BDE 87F081F7 16BBF723 
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D 
+  23041830 1680140A AEB06C05 D260421F CA61E505 0B6C40E2 E9BAF530 1D060355 
+  1D0E0416 04140AAE B06C05D2 60421FCA 61E5050B 6C40E2E9 BAF5300D 06092A86 
+  4886F70D 01010505 00038181 0002956F 06DB6531 3866B0A5 8CA1B592 6D6FAA0A 
+  AA64B872 4529BCA6 2130D798 1FAA4A70 FBF2E5FA 000D64B9 B3AC6920 CF283E0C 
+  FD187BB8 673682FC 85979CB2 9A9D4157 1CEDA107 A2FD1682 87E60A8D D74555F6 
+  8C4F6949 B1A74BDC 9D75ACC2 CC002119 FF51A590 BC9EB89E 74E376DB 3166A925 
+  CB0986CF 37E2D367 BB51D015 78
+  	quit
 !
 !
 !
@@ -29,7 +57,7 @@ ip dhcp snooping
 !
 spanning-tree mode rapid-pvst
 spanning-tree extend system-id
-spanning-tree vlan 20,25,30,40,50,60,99 root secondary
+spanning-tree vlan 20,25,30,40,50,60,99 priority 28672
 !
 vlan internal allocation policy ascending
 !
@@ -37,7 +65,7 @@ vlan internal allocation policy ascending
 !
 !
 !
-!
+!         
 interface Port-channel1
  switchport trunk native vlan 99
  switchport mode trunk
@@ -63,7 +91,7 @@ interface FastEthernet0/6
 interface FastEthernet0/7
 !
 interface FastEthernet0/8
-!         
+!
 interface FastEthernet0/9
 !
 interface FastEthernet0/10
@@ -83,7 +111,7 @@ interface FastEthernet0/16
 interface FastEthernet0/17
 !
 interface FastEthernet0/18
-!
+!         
 interface FastEthernet0/19
 !
 interface FastEthernet0/20
@@ -91,25 +119,25 @@ interface FastEthernet0/20
 interface FastEthernet0/21
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 4 mode active
+ channel-group 3 mode active
 !
 interface FastEthernet0/22
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 4 mode active
+ channel-group 3 mode active
 !
 interface FastEthernet0/23
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 2 mode active
+ channel-group 1 mode active
 !
 interface FastEthernet0/24
  switchport trunk native vlan 99
  switchport mode trunk
- channel-group 2 mode active
+ channel-group 1 mode active
 !
 interface GigabitEthernet0/1
-!         
+!
 interface GigabitEthernet0/2
 !
 interface Vlan1
@@ -129,10 +157,10 @@ snmp-server community public RO
 snmp-server host 10.0.20.3 public 
 !
 vstack
-!
+!         
 line con 0
 line vty 0 4
- login    
+ login
 line vty 5 15
  login
 !
