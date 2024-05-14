@@ -32,21 +32,25 @@ ip dhcp pool VLAN30
  network 10.0.30.0 255.255.255.0
  default-router 10.0.30.254 
  dns-server 10.0.20.1 
+ domain-name eci.com
 !
 ip dhcp pool VLAN40
  network 10.0.40.0 255.255.255.0
  default-router 10.0.40.254 
  dns-server 10.0.20.1 
+ domain-name eci.com
 !
 ip dhcp pool VLAN50
  network 10.0.50.0 255.255.255.0
  default-router 10.0.50.254 
  dns-server 10.0.20.1 
-!         
+ domain-name eci.com
+!
 ip dhcp pool VLAN60
  network 10.0.60.0 255.255.255.0
  default-router 10.0.60.254 
  dns-server 10.0.20.1 
+ domain-name eci.com
 !
 !
 !
