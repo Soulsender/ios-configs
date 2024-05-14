@@ -1,5 +1,5 @@
 !
-! Last configuration change at 11:14:17 UTC Tue May 14 2024
+! Last configuration change at 11:46:08 UTC Tue May 14 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -24,7 +24,7 @@ vrf definition Mgmt-intf
 !
 no aaa new-model
 !
-ip domain name cst.com
+ip domain name eci.com
 !
 ip dhcp pool VLAN10
  network 10.0.10.0 255.255.255.0
@@ -213,6 +213,7 @@ interface GigabitEthernet0
 !
 router ospf 10
  router-id 2.2.2.2
+ passive-interface GigabitEthernet0/0/1
  network 10.0.0.2 0.0.0.0 area 0
  network 10.0.10.0 0.0.0.255 area 0
  network 10.0.20.0 0.0.0.255 area 0
@@ -249,7 +250,7 @@ ip access-list standard NAT
 !
 !
 control-plane
-!         
+!
 !
 line con 0
  transport input none

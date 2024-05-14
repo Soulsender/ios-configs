@@ -28,6 +28,26 @@ ip domain name eci.com
 !
 ip dhcp pool webuidhcp
 !
+ip dhcp pool VLAN30
+ network 10.0.30.0 255.255.255.0
+ default-router 10.0.30.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN40
+ network 10.0.40.0 255.255.255.0
+ default-router 10.0.40.254 
+ dns-server 10.0.20.1 
+!
+ip dhcp pool VLAN50
+ network 10.0.50.0 255.255.255.0
+ default-router 10.0.50.254 
+ dns-server 10.0.20.1 
+!         
+ip dhcp pool VLAN60
+ network 10.0.60.0 255.255.255.0
+ default-router 10.0.60.254 
+ dns-server 10.0.20.1 
+!
 !
 !
 !
@@ -91,7 +111,7 @@ spanning-tree extend system-id
 redundancy
  mode none
 !
-!
+!         
 !
 !
 !
@@ -111,6 +131,7 @@ interface GigabitEthernet0/0/0
 interface GigabitEthernet0/0/0.10
  encapsulation dot1Q 10
  ip address 10.0.10.201 255.255.255.0
+ ip nat inside
  glbp 1 ip 10.0.10.254
  glbp 1 priority 150
  glbp 1 preempt
@@ -118,6 +139,7 @@ interface GigabitEthernet0/0/0.10
 interface GigabitEthernet0/0/0.20
  encapsulation dot1Q 20
  ip address 10.0.20.201 255.255.255.0
+ ip nat inside
  glbp 2 ip 10.0.20.254
  glbp 2 priority 150
  glbp 2 preempt
@@ -125,6 +147,7 @@ interface GigabitEthernet0/0/0.20
 interface GigabitEthernet0/0/0.25
  encapsulation dot1Q 25
  ip address 10.0.25.201 255.255.255.0
+ ip nat inside
  glbp 3 ip 10.0.25.254
  glbp 3 priority 150
  glbp 3 preempt
@@ -132,6 +155,7 @@ interface GigabitEthernet0/0/0.25
 interface GigabitEthernet0/0/0.30
  encapsulation dot1Q 30
  ip address 10.0.30.201 255.255.255.0
+ ip nat inside
  glbp 4 ip 10.0.30.254
  glbp 4 priority 150
  glbp 4 preempt
@@ -139,6 +163,7 @@ interface GigabitEthernet0/0/0.30
 interface GigabitEthernet0/0/0.40
  encapsulation dot1Q 40
  ip address 10.0.40.201 255.255.255.0
+ ip nat inside
  glbp 5 ip 10.0.40.254
  glbp 5 priority 150
  glbp 5 preempt
@@ -146,6 +171,7 @@ interface GigabitEthernet0/0/0.40
 interface GigabitEthernet0/0/0.50
  encapsulation dot1Q 50
  ip address 10.0.50.201 255.255.255.0
+ ip nat inside
  glbp 6 ip 10.0.50.254
  glbp 6 priority 150
  glbp 6 preempt
@@ -153,6 +179,7 @@ interface GigabitEthernet0/0/0.50
 interface GigabitEthernet0/0/0.60
  encapsulation dot1Q 60
  ip address 10.0.60.201 255.255.255.0
+ ip nat inside
  glbp 7 ip 10.0.60.254
  glbp 7 priority 150
  glbp 7 preempt
@@ -162,10 +189,12 @@ interface GigabitEthernet0/0/0.99
 !
 interface GigabitEthernet0/0/1
  ip address 123.0.0.1 255.255.255.252
+ ip nat outside
  negotiation auto
 !
 interface GigabitEthernet0/1/0
  ip address 10.0.0.1 255.255.255.252
+ ip nat inside
  negotiation auto
 !
 interface GigabitEthernet0
@@ -176,6 +205,7 @@ interface GigabitEthernet0
 router ospf 10
  router-id 1.1.1.1
  passive-interface GigabitEthernet0/0/0
+ passive-interface GigabitEthernet0/0/1
  network 10.0.0.0 0.0.0.3 area 0
  network 10.0.10.0 0.0.0.255 area 0
  network 10.0.20.0 0.0.0.255 area 0
@@ -186,6 +216,7 @@ router ospf 10
  network 10.0.60.0 0.0.0.255 area 0
  network 123.0.0.0 0.0.0.3 area 0
 !
+ip nat inside source list 1 interface GigabitEthernet0/0/1 overload
 ip forward-protocol nd
 ip http server
 ip http authentication local
@@ -194,6 +225,16 @@ ip tftp source-interface GigabitEthernet0
 ip route 0.0.0.0 0.0.0.0 123.0.0.2
 !
 !
+!
+ip access-list standard NAT
+ permit 10.0.0.0 0.0.0.255
+ permit 10.0.10.0 0.0.0.255
+ permit 10.0.20.0 0.0.0.255
+ permit 10.0.25.0 0.0.0.255
+ permit 10.0.30.0 0.0.0.255
+ permit 10.0.40.0 0.0.0.255
+ permit 10.0.50.0 0.0.0.255
+ permit 10.0.60.0 0.0.0.255
 !
 !
 !
