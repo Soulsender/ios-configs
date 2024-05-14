@@ -219,6 +219,7 @@ router ospf 10
  network 123.0.0.5 0.0.0.0 area 0
  network 192.168.14.0 0.0.0.255 area 0
 !
+ip nat inside source list 1 interface GigabitEthernet0/0/1 overload
 ip forward-protocol nd
 ip http server
 ip http authentication local
