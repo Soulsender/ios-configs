@@ -1,5 +1,5 @@
 !
-! Last configuration change at 21:09:58 UTC Tue May 14 2024
+! Last configuration change at 21:46:10 UTC Tue May 14 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -223,10 +223,9 @@ router ospf 10
  passive-interface GigabitEthernet0/0/0
  passive-interface GigabitEthernet0/0/1
  passive-interface GigabitEthernet0/1/0
- network 123.0.0.8 0.0.0.3 area 0
- network 123.0.0.12 0.0.0.3 area 0
  network 192.168.0.0 0.0.0.255 area 0
  network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.13.0 0.0.0.255 area 0
  network 192.168.20.0 0.0.0.255 area 0
  network 192.168.25.0 0.0.0.255 area 0
  network 192.168.30.0 0.0.0.255 area 0
@@ -243,8 +242,6 @@ ip http secure-server
 ip tftp source-interface GigabitEthernet0
 ip route 0.0.0.0 0.0.0.0 123.0.0.14
 ip route 0.0.0.0 0.0.0.0 123.0.0.10 50
-ip route 10.0.0.0 255.255.0.0 Tunnel1
-ip route 10.0.10.0 255.255.255.0 Tunnel1
 !
 !
 !
@@ -272,7 +269,7 @@ ip access-list standard NATBACKUP
 !
 control-plane
 !
-!         
+!
 line con 0
  transport input none
  stopbits 1
@@ -291,3 +288,4 @@ line vty 5 15
 !
 !
 end
+
