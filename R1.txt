@@ -128,15 +128,11 @@ interface Tunnel1
  tunnel source GigabitEthernet0/0/1
  tunnel destination 123.0.0.13
 !
-interface Tunnel2
- no ip address
- ip ospf 10 area 0
- shutdown
-!
 interface GigabitEthernet0/0/0
  no ip address
  ip nat inside
  negotiation auto
+ no shutdown
 !
 interface GigabitEthernet0/0/0.10
  encapsulation dot1Q 10
@@ -201,11 +197,13 @@ interface GigabitEthernet0/0/1
  ip address 123.0.0.1 255.255.255.252
  ip nat outside
  negotiation auto
+ no shutdown
 !
 interface GigabitEthernet0/1/0
  ip address 10.0.0.1 255.255.255.252
  ip nat inside
  negotiation auto
+ no shutdown
 !
 interface GigabitEthernet0
  vrf forwarding Mgmt-intf
@@ -247,7 +245,7 @@ ip access-list standard NAT
  permit 10.0.50.0 0.0.0.255
  permit 10.0.60.0 0.0.0.255
 !
-!
+logging host 10.0.20.3
 !
 !         
 control-plane
