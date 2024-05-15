@@ -1,5 +1,5 @@
 !
-! Last configuration change at 00:03:35 UTC Mon Mar 1 1993
+! Last configuration change at 00:31:02 UTC Mon Mar 1 1993
 !
 version 15.0
 no service pad
@@ -17,9 +17,8 @@ no logging console
 username admin secret 5 $1$L7fl$Dfg9HjYWEdU8EeSMgQWrN/
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 10,20,25,30,40,50,60,99
 !
-!         
+!
 ip dhcp snooping
 ip domain-name eci.com
 !
@@ -65,8 +64,8 @@ vlan internal allocation policy ascending
 !
 !
 !
-!         
 !
+!         
 !
 interface Port-channel1
  switchport trunk native vlan 99
@@ -89,7 +88,7 @@ interface FastEthernet0/5
 interface FastEthernet0/6
 !
 interface FastEthernet0/7
-!
+!         
 interface FastEthernet0/8
 !
 interface FastEthernet0/9
@@ -111,7 +110,7 @@ interface FastEthernet0/16
 interface FastEthernet0/17
 !
 interface FastEthernet0/18
-!         
+!
 interface FastEthernet0/19
 !
 interface FastEthernet0/20
@@ -135,7 +134,7 @@ interface FastEthernet0/24
  switchport trunk native vlan 99
  switchport mode trunk
  channel-group 1 mode active
-!
+!         
 interface GigabitEthernet0/1
 !
 interface GigabitEthernet0/2

@@ -1,5 +1,5 @@
 !
-! Last configuration change at 01:58:28 UTC Mon Mar 1 1993
+! Last configuration change at 00:31:18 UTC Mon Mar 1 1993
 !
 version 15.0
 no service pad
@@ -17,14 +17,40 @@ no logging console
 username admin secret 5 $1$L7fl$Dfg9HjYWEdU8EeSMgQWrN/
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 10,20,25,30,40,50,60,99
 !
-!         
+!
 ip dhcp snooping
 ip domain-name eci.com
 !
 !
+crypto pki trustpoint TP-self-signed-797833344
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-797833344
+ revocation-check none
+ rsakeypair TP-self-signed-797833344
 !
+!
+crypto pki certificate chain TP-self-signed-797833344
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 37393738 33333334 34301E17 0D393330 33303130 30303035 
+  395A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3739 37383333 
+  33343430 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 
+  DCA8D86E B94D496A A8D114F7 0A954DC8 B75AD1B2 A89D4FEB C2EE8E6D C0EA48DB 
+  C74876B6 38CCC0EC CE8E1C9D 6D4B8FC0 7D65734F A890F7E4 05A60F47 10CC2225 
+  06C6BE83 A535E8E6 75394A4C 23DB4830 B5B45DD6 2E4B9C90 143C2E23 8CD3E86C 
+  83F51FCE B8E202DD 4AE6757A CE2782BD 2B8E5B75 BD6B9A0C 09AE2D74 28B51E6D 
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D 
+  23041830 168014BE 469EF821 A5CD0286 1D2320A4 DB3E5D95 71E63030 1D060355 
+  1D0E0416 0414BE46 9EF821A5 CD02861D 2320A4DB 3E5D9571 E630300D 06092A86 
+  4886F70D 01010505 00038181 006BD574 3C050C18 02E0F5FE D77398CC 4039AAEB 
+  0D714C42 E8D0A51F B150BDEC 8C38938F 0BD8905E 23D94FC7 FCD056C7 E670B609 
+  A4F2BD79 ABD47D93 E8605805 DC827E61 4BDD54ED D830C4A1 D9ECA3A9 5E00BA7F 
+  22DBBFCE E808512D 69361346 6928862D DBA11148 BA1B41DD 1C4F5128 D61EC5D7 
+  505C8662 DDFAF8F5 F8B3ADB0 85
+  	quit
 !
 !
 !
@@ -39,7 +65,7 @@ vlan internal allocation policy ascending
 !
 !
 !
-!
+!         
 !
 interface Port-channel1
  switchport trunk native vlan 99
@@ -62,7 +88,7 @@ interface FastEthernet0/5
 interface FastEthernet0/6
 !
 interface FastEthernet0/7
-!
+!         
 interface FastEthernet0/8
 !
 interface FastEthernet0/9
@@ -88,7 +114,7 @@ interface FastEthernet0/18
 interface FastEthernet0/19
 !
 interface FastEthernet0/20
-!         
+!
 interface FastEthernet0/21
  switchport trunk native vlan 99
  switchport mode trunk
@@ -108,7 +134,7 @@ interface FastEthernet0/24
  switchport trunk native vlan 99
  switchport mode trunk
  channel-group 3 mode active
-!
+!         
 interface GigabitEthernet0/1
 !
 interface GigabitEthernet0/2
@@ -134,5 +160,6 @@ line vty 0 4
  transport input ssh
 line vty 5 15
  login
-!         
+!
 end
+
