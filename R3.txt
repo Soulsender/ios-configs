@@ -1,5 +1,5 @@
 !
-! Last configuration change at 17:22:51 UTC Thu May 16 2024
+! Last configuration change at 19:41:45 UTC Thu May 16 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -244,7 +244,7 @@ ip forward-protocol nd
 no ip http server
 ip http authentication local
 no ip http secure-server
-ip tftp source-interface GigabitEthernet0
+ip tftp source-interface Tunnel2
 ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/1/0
 ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0/1 250
 !
@@ -299,6 +299,11 @@ line vty 5 15
 !
 !
 !
+event manager applet backup-config
+ event timer cron cron-entry "0 0 * * 0"
+ action 1.0 cli command "enable"
+ action 2.0 cli command "copy startup-config tftp://10.0.20.3/R3-startup-config"
+ action 3.0 cli command "copy isr4300-universalk9.16.09.02.SPA.bin tftp://10.0.20.3/R3-isr4300-universalk9.16.09.02.SPA.bin"
 !
 end
 

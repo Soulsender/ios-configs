@@ -243,7 +243,7 @@ ip forward-protocol nd
 no ip http server
 ip http authentication local
 no ip http secure-server
-ip tftp source-interface GigabitEthernet0
+ip tftp source-interface GigabitEthernet0/0/0
 ip route 0.0.0.0 0.0.0.0 123.0.0.6
 ip route 0.0.0.0 0.0.0.0 10.0.0.1 250
 !
@@ -287,6 +287,11 @@ line vty 0 4
 !
 !
 !
+event manager applet backup-config
+ event timer cron cron-entry "0 0 * * 0"
+ action 1.0 cli command "enable"
+ action 2.0 cli command "copy startup-config tftp://10.0.20.3/R1-startup-config"
+ action 3.0 cli command "copy isr4300-universalk9.16.09.02.SPA.bin tftp://10.0.20.3/R1-isr4300-universalk9.16.09.02.SPA.bin"
 !
 end
 
