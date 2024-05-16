@@ -1,5 +1,5 @@
 !
-! Last configuration change at 21:12:48 UTC Wed May 15 2024
+! Last configuration change at 17:04:06 UTC Thu May 16 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -20,7 +20,7 @@ vrf definition Mgmt-intf
  !
  address-family ipv6
  exit-address-family
-!         
+!
 !
 no aaa new-model
 !
@@ -43,7 +43,7 @@ ip dhcp pool VLAN40
  default-router 192.168.40.254 
  dns-server 10.0.20.1 
  domain-name eci.com
-!         
+!
 ip dhcp pool VLAN50
  network 192.168.50.0 255.255.255.0
  default-router 192.168.50.254 
@@ -66,7 +66,7 @@ ip dhcp pool VLAN60
 !
 !
 subscriber templating
-!         
+! 
 ! 
 ! 
 ! 
@@ -111,8 +111,8 @@ crypto pki certificate chain TP-self-signed-1628951475
   A0687A93 513C2B5B BDB6AA56 A6B3F0FD 6DA31A7F BDC8C2E2 3CA9112C BC0755A5 
   18C73BEE 0774DB69 15D95252 66B026DA 71BEBB7D E5C83D44 36E615B4 4ADC2C9C 
   D8565F74 36B429B4 81A3CCEC 45E13104 9CAD4376
-  	quit
-!         
+        quit
+!
 license udi pid ISR4321/K9 sn FLM2408022L
 license boot suite FoundationSuiteK9
 no license smart enable
@@ -134,8 +134,8 @@ redundancy
 !
 !
 ! 
-!
 !         
+!
 !
 !
 !
@@ -150,11 +150,13 @@ redundancy
 !
 interface Tunnel1
  ip address 192.168.13.2 255.255.255.0
+ ip nat inside
  tunnel source GigabitEthernet0/0/1
  tunnel destination 123.0.0.1
 !
 interface Tunnel2
  ip address 192.168.14.2 255.255.255.0
+ ip nat inside
  tunnel source GigabitEthernet0/1/0
  tunnel destination 123.0.0.5
 !
@@ -201,7 +203,7 @@ interface GigabitEthernet0/0/0.60
 interface GigabitEthernet0/0/0.99
  encapsulation dot1Q 99 native
  ip nat inside
-!
+!         
 interface GigabitEthernet0/0/1
  ip address 123.0.0.13 255.255.255.252
  ip nat outside
@@ -237,12 +239,12 @@ router ospf 10
 ip nat inside source list NAT interface GigabitEthernet0/1/0 overload
 ip nat inside source list NATBACKUP interface GigabitEthernet0/0/1 overload
 ip forward-protocol nd
-ip http server
+no ip http server
 ip http authentication local
-ip http secure-server
+no ip http secure-server
 ip tftp source-interface GigabitEthernet0
-ip route 0.0.0.0 0.0.0.0 123.0.0.14
-ip route 0.0.0.0 0.0.0.0 123.0.0.10 50
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/1/0
+ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0/1 250
 !
 !
 !
@@ -270,7 +272,7 @@ logging host 10.0.20.3
 !
 !
 control-plane
-!
+!         
 !
 line con 0
  transport input none
