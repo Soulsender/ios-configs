@@ -1,5 +1,5 @@
 !
-! Last configuration change at 16:53:02 UTC Thu May 16 2024
+! Last configuration change at 17:22:26 UTC Thu May 16 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -261,6 +261,7 @@ ip http authentication local
 no ip http secure-server
 ip tftp source-interface GigabitEthernet0
 ip route 0.0.0.0 0.0.0.0 123.0.0.2
+ip route 0.0.0.0 0.0.0.0 10.0.0.2 250
 !
 !
 !
@@ -273,6 +274,13 @@ ip access-list standard NAT
  permit 10.0.40.0 0.0.0.255
  permit 10.0.50.0 0.0.0.255
  permit 10.0.60.0 0.0.0.255
+!
+ip access-list extended INBOUND
+ permit tcp any host 10.0.25.1 eq www
+ permit tcp any host 10.0.25.1 eq 443
+ permit gre any any
+ permit tcp any any established
+ permit icmp any any echo-reply
 logging host 10.0.20.3
 !
 !
@@ -295,7 +303,7 @@ line vty 5 15
 !
 !
 !
-!         
+!
 !
 !
 end

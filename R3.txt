@@ -1,5 +1,5 @@
 !
-! Last configuration change at 17:04:06 UTC Thu May 16 2024
+! Last configuration change at 17:22:51 UTC Thu May 16 2024
 !
 version 16.9
 service timestamps debug datetime msec
@@ -207,11 +207,13 @@ interface GigabitEthernet0/0/0.99
 interface GigabitEthernet0/0/1
  ip address 123.0.0.13 255.255.255.252
  ip nat outside
+ ip access-group INBOUND in
  negotiation auto
 !
 interface GigabitEthernet0/1/0
  ip address 123.0.0.9 255.255.255.252
  ip nat outside
+ ip access-group INBOUND in
  negotiation auto
 !
 interface GigabitEthernet0
@@ -247,7 +249,7 @@ ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/1/0
 ip route 0.0.0.0 0.0.0.0 GigabitEthernet0/0/1 250
 !
 !
-!
+!         
 ip access-list standard NAT
  permit 192.168.0.0 0.0.0.255
  permit 192.168.10.0 0.0.0.255
@@ -266,13 +268,20 @@ ip access-list standard NATBACKUP
  permit 192.168.40.0 0.0.0.255
  permit 192.168.50.0 0.0.0.255
  permit 192.168.60.0 0.0.0.255
+!
+ip access-list extended INBOUND
+ permit tcp any host 192.168.25.2 eq www
+ permit tcp any host 192.168.25.2 eq 443
+ permit gre any any
+ permit tcp any any established
+ permit icmp any any echo-reply
 logging host 10.0.20.3
 !
 !
 !
 !
 control-plane
-!         
+!
 !
 line con 0
  transport input none
@@ -286,7 +295,7 @@ line vty 5 15
  login local
  transport input ssh
 !
-!
+!         
 !
 !
 !
