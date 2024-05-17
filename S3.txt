@@ -76,6 +76,8 @@ interface Port-channel4
  switchport mode trunk
 !
 interface FastEthernet0/1
+ switchport trunk native vlan 99
+ switchport mode trunk
 !
 interface FastEthernet0/2
 !
