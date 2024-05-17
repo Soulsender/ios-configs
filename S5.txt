@@ -1,5 +1,5 @@
 !
-! Last configuration change at 01:44:14 UTC Mon Mar 1 1993
+! Last configuration change at 01:36:44 UTC Mon Mar 1 1993
 !
 version 15.0
 no service pad
@@ -13,19 +13,44 @@ boot-start-marker
 boot-end-marker
 !
 !
+username admin secret 5 $1$KIV8$hWKv9hlNe8.XHdmb7..CP.
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 30,40,50,60
+ip arp inspection vlan 99
 !
 !
 ip dhcp snooping
-!         
+ip domain-name eci.com
+!
 !
 crypto pki trustpoint TP-self-signed-797826688
  enrollment selfsigned
  subject-name cn=IOS-Self-Signed-Certificate-797826688
  revocation-check none
  rsakeypair TP-self-signed-797826688
+!
+!
+crypto pki certificate chain TP-self-signed-797826688
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 37393738 32363638 38301E17 0D393330 33303130 30303130 
+  315A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3739 37383236 
+  36383830 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 
+  ABDBD438 39DF6614 8B774935 C0ED811B 956E4558 8DD635FE 55460AE3 A39F737D 
+  83B9A13E D57A9062 FEFE3F74 04C12083 1A48306A E6A8AECD AD523296 7B3B361D 
+  A692AC9F 408FCF5C C52A06D4 297E8F40 54596F12 04566E33 DE7C7AE0 9C55E756 
+  73A57614 9FDC2DF7 CA1D9BA7 0F41E97B 02008ADC 05BE71C3 166E363E 3CE0A6E3 
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D 
+  23041830 1680144E ED63A01D 14157974 6B38890A 0E8C4D42 C3A38230 1D060355 
+  1D0E0416 04144EED 63A01D14 1579746B 38890A0E 8C4D42C3 A382300D 06092A86 
+  4886F70D 01010505 00038181 00572AEA A172A031 67FFA5CF CCE8E930 DC7EC642 
+  233E2449 7E6C4622 5EF6674A 7C9702F0 BF33F853 1CF1D112 7327463C 2BD0E6F9 
+  34274725 30E7B00D 3B8B2BC1 F13BBF92 831C588B 3B7471A7 CF85C0E5 F3CD88B3 
+  3F19B06F 9705319C CBCB7117 514F9683 8859D06E 6AF41CDD 23EADB25 2FEBB567 
+  639C589C CF7382C1 44BB1FB8 5D
+  	quit
 !
 !
 !
@@ -37,9 +62,10 @@ spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
 !
+ip ssh version 2
 !
 !
-!
+!         
 !
 !
 interface FastEthernet0/1
@@ -85,11 +111,11 @@ interface FastEthernet0/19
 interface FastEthernet0/20
 !
 interface FastEthernet0/21
-!
+!         
 interface FastEthernet0/22
 !
 interface FastEthernet0/23
-!         
+!
 interface FastEthernet0/24
  switchport access vlan 25
  switchport mode access
@@ -110,15 +136,18 @@ interface Vlan10
 ip default-gateway 192.168.10.254
 ip http server
 ip http secure-server
+logging host 10.0.20.3
+logging trap notifications
 !
-!
-vstack    
+vstack
 !
 line con 0
 line vty 0 4
- login
+ login local
+ transport input ssh
 line vty 5 15
  login
 !
+ntp server 10.0.20.3
 end
 
