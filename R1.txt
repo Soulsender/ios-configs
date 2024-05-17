@@ -58,7 +58,10 @@ ip dhcp pool VLAN60
  dns-server 10.0.20.1 
  domain-name eci.com
 !
-!
+ip dhcp excluded-address 10.0.30.200 10.0.30.254
+ip dhcp excluded-address 10.0.40.200 10.0.40.254
+ip dhcp excluded-address 10.0.50.200 10.0.50.254
+ip dhcp excluded-address 10.0.60.200 10.0.60.254
 !
 !
 !
@@ -153,6 +156,7 @@ redundancy
 !
 interface Tunnel1
  ip address 192.168.13.1 255.255.255.0
+ ip ospf 10 area 0
  tunnel source GigabitEthernet0/0/1
  tunnel destination 123.0.0.13
 !
@@ -248,8 +252,6 @@ router ospf 10
  network 10.0.40.0 0.0.0.255 area 0
  network 10.0.50.0 0.0.0.255 area 0
  network 10.0.60.0 0.0.0.255 area 0
- network 192.168.13.0 0.0.0.255 area 0
- network 192.168.14.0 0.0.0.3 area 0
 !
 ip nat inside source list NAT interface GigabitEthernet0/0/1 overload
 ip forward-protocol nd
