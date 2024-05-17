@@ -15,7 +15,7 @@ boot-end-marker
 !
 no aaa new-model
 system mtu routing 1500
-ip arp inspection vlan 10,20,25,30,40,50,60,99
+ip arp inspection vlan 30,40,50,60
 !
 !
 ip dhcp snooping
