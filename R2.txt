@@ -285,7 +285,8 @@ ip access-list extended INBOUND
 logging host 10.0.20.3
 logging trap notifications
 !         
-!
+snmp-server community public RO
+snmp-server host 10.0.20.3 version 2c snmppassword123@
 !
 !
 control-plane
