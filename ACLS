@@ -9,6 +9,27 @@ permit tcp any any established
 permit icmp any any echo-reply
 int g0/0/1
 ip access-group INBOUND in
+! 
+! R1 and R2 g0/0/0.25 subinterface DMZ
+!
+ip access-list extended DMZ
+permit ip 10.0.25.0 0.0.0.255 10.0.25.0 0.0.0.255
+deny ip 10.0.25.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 192.168.25.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip 10.0.25.0 0.0.0.255 any
+int g0/0/0.25
+ip access-group DMZ in
+! 
+! R1 and R2 GUEST
+!
+ip access-list extended GUEST
+permit ip 10.0.60.0 0.0.0.255 10.0.60.0 0.0.0.255
+deny ip 10.0.60.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 192.168.60.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip 10.0.60.0 0.0.0.255 any
+int g0/0/0.60
+ip access-group GUEST in
+
 
 
 !
@@ -24,67 +45,27 @@ int g0/0/1
 ip access-group INBOUND in
 int g0/1/0
 ip access-group INBOUND in
-
-
-! 
-! R1 and R2 g0/0/0.25 subinterface DMZ
-!
-ip access-list extended DMZ
-deny ip 10.0.25.0 0.0.0.255 10.0.10.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 10.0.20.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 10.0.30.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 10.0.40.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 10.0.50.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 10.0.60.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.10.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.20.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.30.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.40.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.50.0 0.0.0.255
-deny ip 10.0.25.0 0.0.0.255 192.168.60.0 0.0.0.255
-permit ip any any
-int g0/0/0.25
-ip access-group DMZ in
-
-
 ! 
 ! R3 g0/0/0.25 subinterface DMZ
 !
 ip access-list extended DMZ
-deny ip 192.168.25.0 0.0.0.255 10.0.10.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 10.0.20.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 10.0.30.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 10.0.40.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 10.0.50.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 10.0.60.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.10.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.20.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.30.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.40.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.50.0 0.0.0.255
-deny ip 192.168.25.0 0.0.0.255 192.168.60.0 0.0.0.255
-permit ip any any
+permit ip 192.168.25.0 0.0.0.255 192.168.25.0 0.0.0.255
+deny ip 192.168.25.0 0.0.0.255 192.168.0.0 0.0.255.255
+deny ip 10.0.25.0 0.0.0.255 10.0.0.0 0.255.255.255
+permit ip 192.168.25.0 0.0.0.255 any
 int g0/0/0.25
 ip access-group DMZ in
-
-
-
-ip access-list extended DMZ
- permit tcp any any eq 80
- permit tcp any any eq 443
- permit icmp any any
- deny ip any any
-
-
-
 ! 
-! Router management ACL
+! R3 GUEST
 !
-ip access-list standard MANAGEMENT
-permit 10.0.10.0 0.0.0.255
-permit 192.168.10.0 0.0.0.255
-int g0/0/0.10
-ip access-group MANAGEMENT in
+ip access-list extended DMZ
+permit ip 192.168.60.0 0.0.0.255 192.168.60.0 0.0.0.255
+deny ip 192.168.60.0 0.0.0.255 192.168.0.0 0.0.255.255
+deny ip 10.0.60.0 0.0.0.255 10.0.0.0 0.255.255.255
+permit ip 192.168.60.0 0.0.0.255 any
+int g0/0/0.60
+ip access-group GUEST in
 
 
 
+no ip access-list extended DMZ
