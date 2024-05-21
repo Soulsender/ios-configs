@@ -13,9 +13,10 @@ boot-start-marker
 boot-end-marker
 !
 !
-username admin secret 5 $1$cdNL$5qzgEHSuNbw7eGxIeh5iP1
+username admin secret 5 $1$KiH5$8L9YSoIEr9ttpaih2WHnd1
 no aaa new-model
 system mtu routing 1500
+ip arp inspection vlan 30,40,50,60
 !
 !
 ip dhcp snooping

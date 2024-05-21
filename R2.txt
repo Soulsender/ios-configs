@@ -121,7 +121,7 @@ spanning-tree extend system-id
 !
 !
 !
-username admin secret 5 $1$WLxj$jTNHBWlqg8uNdqs41toHZ0
+username admin secret 5 $1$KiH5$8L9YSoIEr9ttpaih2WHnd1
 !
 redundancy
  mode none
@@ -267,6 +267,7 @@ ip access-list standard NAT
  permit 10.0.60.0 0.0.0.255
 !
 ip access-list extended DMZ
+ permit icmp any any echo-reply
  permit ip 10.0.25.0 0.0.0.255 10.0.25.0 0.0.0.255
  deny   ip 10.0.25.0 0.0.0.255 10.0.0.0 0.255.255.255
  deny   ip 192.168.25.0 0.0.0.255 192.168.0.0 0.0.255.255
@@ -282,6 +283,12 @@ ip access-list extended INBOUND
  permit gre any any
  permit tcp any any established
  permit icmp any any echo-reply
+ip access-list extended SSH_ONLY
+ permit tcp 10.0.10.0 0.0.0.255 any eq 22
+ permit tcp 10.0.50.0 0.0.0.255 any eq 22
+ permit tcp 192.168.10.0 0.0.0.255 any eq 22
+ permit tcp 192.168.50.0 0.0.0.255 any eq 22
+ deny ip any any
 logging host 10.0.20.3
 logging trap notifications
 !         
